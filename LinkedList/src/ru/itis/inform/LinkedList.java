@@ -34,10 +34,15 @@ public class LinkedList implements List {
             node = node.getNext();
         }
 
-        if (node.getNext() != null) {
-            previous.setNext(node.getNext());
+        if (previous == null) {
+            this.first = node.getNext();
         } else {
-            previous.setNext(null);
+
+            if (node.getNext() != null) {
+                previous.setNext(node.getNext());
+            } else {
+                previous.setNext(null);
+            }
         }
 
         this.count--;

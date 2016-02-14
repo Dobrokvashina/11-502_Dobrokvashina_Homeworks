@@ -12,7 +12,7 @@ public class Main {
         list.show();
         list.remove(5);
         list.show();
-        list.remove(3);
+        list.remove(1);
         list.show();
     }
 }
