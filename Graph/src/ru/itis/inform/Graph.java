@@ -18,4 +18,8 @@ public interface Graph {
      * Вывод графа на экран
      */
     void showGraph();
+
+    int [][] RunFloid();
+
+    void showFloid();
 }

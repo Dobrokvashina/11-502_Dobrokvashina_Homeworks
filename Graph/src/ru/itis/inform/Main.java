@@ -1,7 +1,5 @@
 package ru.itis.inform;
 
-import ru.itis.inform.Graph;
-import ru.itis.inform.GraphMatrixImpl;
 
 public class Main {
 
@@ -21,6 +19,11 @@ public class Main {
         graph.addEdge(2, 4, 1);
 
         graph.showGraph();
+        System.out.println();
+
+        graph.RunFloid();
+        graph.showFloid();
+
     }
 }
 

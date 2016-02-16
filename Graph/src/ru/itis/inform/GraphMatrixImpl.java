@@ -1,6 +1,5 @@
 package ru.itis.inform;
 
-import ru.itis.inform.Graph;
 
 public class GraphMatrixImpl implements Graph {
 
@@ -9,6 +8,8 @@ public class GraphMatrixImpl implements Graph {
      * Тут храним вершины и ребра
      */
     private int matrix[][];
+
+    private int floidMatrix[][];
 
     /**
      * Сколько вершин сейчас в графе. Вершины нумеруются от 0.
@@ -41,6 +42,7 @@ public class GraphMatrixImpl implements Graph {
     public void addEdge(int vertexA, int vertexB, int weight) {
         if (vertexA < verticesCount && vertexB < verticesCount) {
             this.matrix[vertexA][vertexB] = weight;
+            this.matrix[vertexB][vertexA] = weight;
         } else throw new IllegalArgumentException();
     }
 
@@ -51,6 +53,39 @@ public class GraphMatrixImpl implements Graph {
                 System.out.print(matrix[i][j] + ",  ");
             }
             System.out.println(matrix[i][verticesCount - 1]);
+        }
+    }
+
+    public int[][] RunFloid() {
+
+        this.floidMatrix = new int[this.verticesCount][this.verticesCount];
+
+        for (int i = 0; i < this.verticesCount; i++) {
+            for (int j = 0; j < this.verticesCount; j++) {
+                if (i != j && this.matrix[i][j] == 0) {
+                    this.floidMatrix[i][j] = 100;
+                } else {
+                    this.floidMatrix[i][j] = this.matrix[i][j];
+                }
+            }
+        }
+
+        for (int k = 0; k < this.verticesCount; k++) {
+            for (int i = 0; i < this.verticesCount; i++) {
+                for (int j = 0; j < this.verticesCount; j++) {
+                    this.floidMatrix[i][j] = Math.min((this.floidMatrix[i][k] + this.floidMatrix[k][j]), this.floidMatrix[i][j]);
+                }
+            }
+        }
+        return floidMatrix;
+    }
+
+    public void showFloid() {
+        for (int i = 0; i < verticesCount; i++) {
+            for (int j = 0; j < verticesCount - 1; j++) {
+                System.out.print(this.floidMatrix[i][j] + ",  ");
+            }
+            System.out.println(this.floidMatrix[i][verticesCount - 1]);
         }
     }
 }
