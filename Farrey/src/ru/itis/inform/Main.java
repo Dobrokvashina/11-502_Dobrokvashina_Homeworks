@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        FareySequenceGeneratorArrayImpl array = new FareySequenceGeneratorArrayImpl();
-        RationalNumber numbers[] = array.generate(10);
+        FareyArrayImpl array = new FareyArrayImpl();
+        RationalNumber numbers[] = array.runFarey(10);
 
         int j = 0;
         while (numbers[j + 1] != null) {

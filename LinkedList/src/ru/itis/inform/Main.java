@@ -3,16 +3,16 @@ package ru.itis.inform;
 public class Main {
 
     public static void main(String[] args) {
-	    LinkedList list = new LinkedList();
+	    LinkedList<Integer> list = new LinkedList<>();
         list.add(5);
-        list.add(4);
-        list.add(3);
-        list.add(2);
-        list.add(1);
-        list.show();
-        list.remove(5);
-        list.show();
-        list.remove(1);
-        list.show();
+        list.add(7);
+        list.add(10);
+
+        Iterator<Integer> iterator = list.iterator();
+
+        while(iterator.hasNext()) {
+            System.out.print(iterator.peekNext() + "  ");
+            iterator.next();
+        }
     }
 }

@@ -1,11 +1,11 @@
 package ru.itis.inform;
 
-public class FareySequenceGeneratorArrayImpl {
+public class FareyArrayImpl {
 
-    public FareySequenceGeneratorArrayImpl() {
+    public FareyArrayImpl() {
     }
 
-    public RationalNumber[] generate(int n) {
+    public RationalNumber[] runFarey(int n) {
 
         RationalNumber[] rationalNumbers = new RationalNumber[n * n];
 

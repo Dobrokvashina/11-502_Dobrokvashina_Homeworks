@@ -22,9 +22,9 @@ public class GraphMatrixImplTest {
         generator.addVertex();
 
 
-        generator.addEdge(0, 1, 11);
-        generator.addEdge(0, 2, 20);
-        generator.addEdge(1, 2, 8);
+        generator.addWeightedEdge(0, 1, 11);
+        generator.addWeightedEdge(0, 2, 20);
+        generator.addWeightedEdge(1, 2, 8);
 
 
         int actual[][] = generator.RunFloid();

@@ -1,7 +1,7 @@
 package ru.itis.inform;
 
 
-public class GraphMatrixImpl implements Graph {
+public class GraphMatrixImpl implements Graph, DirectedGraph {
 
     private static final int DEFAULT_SIZE = 50;
     /**
@@ -39,10 +39,29 @@ public class GraphMatrixImpl implements Graph {
         } else throw new IllegalArgumentException();
     }
 
-    public void addEdge(int vertexA, int vertexB, int weight) {
+    public void addWeightedEdge(int vertexA, int vertexB, int weight) {
         if (vertexA < verticesCount && vertexB < verticesCount) {
             this.matrix[vertexA][vertexB] = weight;
             this.matrix[vertexB][vertexA] = weight;
+        } else throw new IllegalArgumentException();
+    }
+
+    public void addEdge(int vertexA, int vertexB) {
+        if (vertexA < verticesCount && vertexB < verticesCount) {
+            this.matrix[vertexA][vertexB] = 1;
+            this.matrix[vertexB][vertexA] = 1;
+        } else throw new IllegalArgumentException();
+    }
+
+    public void addDirectedWeightedEdge(int vertexA, int vertexB, int weight) {
+        if (vertexA < verticesCount && vertexB < verticesCount) {
+            this.matrix[vertexA][vertexB] = weight;
+        } else throw new IllegalArgumentException();
+    }
+
+    public void addDirectedEdge(int vertexA, int vertexB) {
+        if (vertexA < verticesCount && vertexB < verticesCount) {
+            this.matrix[vertexA][vertexB] = 1;
         } else throw new IllegalArgumentException();
     }
 

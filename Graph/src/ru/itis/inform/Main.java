@@ -12,11 +12,11 @@ public class Main {
         graph.addVertex();
         graph.addVertex();
 
-        graph.addEdge(0, 2, 3);
-        graph.addEdge(0, 3, 4);
-        graph.addEdge(3, 4, 2);
-        graph.addEdge(2, 1, 5);
-        graph.addEdge(2, 4, 1);
+        graph.addWeightedEdge(0, 2, 3);
+        graph.addWeightedEdge(0, 3, 4);
+        graph.addWeightedEdge(3, 4, 2);
+        graph.addWeightedEdge(2, 1, 5);
+        graph.addWeightedEdge(2, 4, 1);
 
         graph.showGraph();
         System.out.println();

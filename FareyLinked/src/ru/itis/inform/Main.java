@@ -4,10 +4,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        FareySequenceGeneratorLinkedList numbers = new FareySequenceGeneratorLinkedList();
+        FareyLinkedListImpl rationalNumbers = new FareyLinkedListImpl();
 
-        RationalNumberLinkedList rationalNumbers = numbers.generate(10);
+        LinkedList<RationalNumber> listOfNumbers = rationalNumbers.runFarey(10);
 
-        rationalNumbers.show();
+        Iterator<RationalNumber> current = listOfNumbers.iterator();
+
+        while(current.hasNext()) {
+            System.out.print(current.peekNext().getA() + "/" + current.peekNext().getB() + "  ");
+            current.next();
+        }
     }
 }
