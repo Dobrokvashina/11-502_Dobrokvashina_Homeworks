@@ -20,6 +20,10 @@ public class ArrayList<T> {
         this.elements = new Object[size];
     }
 
+    public int length() {
+        return this.size;
+    }
+
     public void growArray() {
         Object[] newOne = new Object[elements.length * 2];
 

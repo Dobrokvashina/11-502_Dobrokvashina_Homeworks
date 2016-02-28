@@ -11,14 +11,14 @@ class LinkedListIteratorImpl<T> implements Iterator<T> {
         this.current = first;
     }
 
-    @Override
+
     public boolean hasNext() {
 
         return current!= null;
     }
 
 
-    @Override
+
     public void next() {
 
         this.current = current.getNext();
@@ -35,7 +35,7 @@ class LinkedListIteratorImpl<T> implements Iterator<T> {
 
     }
 
-    @Override
+
     public void previous() {
 
         if (current.getPrevious() != null) {
@@ -53,7 +53,7 @@ class LinkedListIteratorImpl<T> implements Iterator<T> {
         }
     }
 
-    @Override
+
     public void insert(T element) {
 
         Node newOne = new Node(element);

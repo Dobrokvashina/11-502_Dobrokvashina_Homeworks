@@ -1,0 +1,28 @@
+package ru.itis.inform;
+
+import java.io.File;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        HumanReaderWriter readerWriter = new HumanReaderWriter();
+
+        File file = new File("C:\\Users/Саоша/input.txt");
+
+        LinkedList<Human> humans = readerWriter.readHumans(file);
+
+
+        HumanSorter sorter = new HumanSorter();
+
+        humans = sorter.sort(humans);
+
+        Iterator<Human> iterator = humans.iterator();
+
+
+        readerWriter.writeHumans("C:\\Users/Саоша/output.txt", humans);
+
+    }
+}
+
+
