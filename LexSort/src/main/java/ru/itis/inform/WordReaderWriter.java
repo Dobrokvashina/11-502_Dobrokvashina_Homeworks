@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class HumanReaderWriter {
+public class WordReaderWriter {
 
-    public static LinkedList<Human> readHumans(File fileName) {
+    public static LinkedList<String> readWords(File fileName) {
 
-        LinkedList<Human> list = new LinkedList<Human>();
+        LinkedList<String> list = new LinkedList<String>();
 
         try {
 
@@ -18,13 +18,9 @@ public class HumanReaderWriter {
 
             while (scanner.hasNext()) {
 
-                String name = scanner.next();
+                String word = scanner.next();
 
-                int age = Integer.parseInt(scanner.next());
-
-                Human human = new Human(name, age);
-
-                list.add(human);
+                list.add(word);
             }
 
             scanner.close();
@@ -39,7 +35,7 @@ public class HumanReaderWriter {
 
     }
 
-    public static void writeHumans(String fileName, LinkedList<Human> list) {
+    public static void writeWords(String fileName, LinkedList<String> list) {
 
         File file = new File(fileName);
 
@@ -51,12 +47,12 @@ public class HumanReaderWriter {
 
             PrintWriter out = new PrintWriter(file.getAbsoluteFile());
 
-            Iterator<Human> iterator = list.iterator();
+            Iterator<String> iterator = list.iterator();
 
             try {
 
                 while (iterator.hasNext()) {
-                    out.println(iterator.peekNext().toString());
+                    out.println(iterator.peekNext());
                     iterator.next();
                 }
             } finally {
