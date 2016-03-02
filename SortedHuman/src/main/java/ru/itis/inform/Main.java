@@ -8,7 +8,7 @@ public class Main {
 
         HumanReaderWriter readerWriter = new HumanReaderWriter();
 
-        File file = new File("C:\\Users/Саоша/input.txt");
+        File file = new File("C:\\Users/Саоша/HumanInput.txt");
 
         LinkedList<Human> humans = readerWriter.readHumans(file);
 
@@ -20,7 +20,7 @@ public class Main {
         Iterator<Human> iterator = humans.iterator();
 
 
-        readerWriter.writeHumans("C:\\Users/Саоша/output.txt", humans);
+        readerWriter.writeHumans("C:\\Users/Саоша/HumanOutput.txt", humans);
 
     }
 }
