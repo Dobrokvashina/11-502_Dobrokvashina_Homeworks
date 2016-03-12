@@ -36,6 +36,8 @@ class LinkedListIteratorImpl<T> implements Iterator<T> {
     }
 
 
+
+
     public void previous() {
 
         if (current.getPrevious() != null) {

@@ -18,4 +18,5 @@ public interface List<T> {
     void remove(T element);
 
     Iterator<T> iterator();
+
 }

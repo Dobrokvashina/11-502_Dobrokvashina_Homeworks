@@ -4,6 +4,10 @@ public class Human {
     private String name;
     private int age;
 
+    public boolean compareTo(Human human){
+       return this.age == human.getAge();
+    }
+
     public Human(String name, int age) {
         this.name = name;
         this.age = age;
