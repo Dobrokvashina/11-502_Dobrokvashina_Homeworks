@@ -128,9 +128,9 @@ public class LinkedList<T> implements List<T> {
 
     public static <T extends Comparable<T>> LinkedList<T> sort(LinkedList<T> list) {
         ArrayList<LinkedList<T>> stack = new ArrayList<LinkedList<T>>();
-        double c = Math.log(list.length())/Math.log(2.0);
+        int c = (int)(Math.log(list.length())/Math.log(2.0)) + 1;
 
-        for (int i = 0; i < (int)c + 1; i++) {
+        for (int i = 0; i < c; i++) {
             stack.add(new LinkedList<T>());
         }
 
