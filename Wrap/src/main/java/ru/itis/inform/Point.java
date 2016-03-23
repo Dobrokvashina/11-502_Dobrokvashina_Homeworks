@@ -1,10 +1,12 @@
 package ru.itis.inform;
 
+import java.security.PublicKey;
+
 public class Point {
 
     private int x;
     private int y;
-    private boolean was;
+    boolean was;
 
     public Point(int x, int y) {
         this.x = x;
@@ -28,5 +30,8 @@ public class Point {
         return y;
     }
 
+    public String toString() {
+        return "( " + x + ", " + y + ")";
+    }
 
 }
