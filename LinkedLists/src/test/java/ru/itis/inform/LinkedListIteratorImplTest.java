@@ -1,8 +1,6 @@
 package ru.itis.inform;
 
 import org.junit.Test;
-import ru.itis.inform.Iterator;
-import ru.itis.inform.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 
