@@ -8,15 +8,16 @@ import java.util.Queue;
 public class BinarySearchTreeImpl implements BinarySearchTree {
 
     private  Node root;
+    private  int[] order;
+    private int count;
+    private int i;
 
     private Node insertNode(Node root, int element)
     {
         if (root == null) {
             root = new Node(element);
-            /*
             root.setLeft(null);
             root.setRight(null);
-            */
         } else if (element <= root.getData()) {
             root.setLeft(insertNode(root.getLeft(), element));
         } else {
@@ -42,6 +43,7 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
 
     public void insert(int element) {
         this.root = insertNode(this.root, element);
+        count++;
     }
 
     public void show() {
@@ -131,6 +133,7 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
         return isValid(root, Integer.MIN_VALUE,
                 Integer.MAX_VALUE);
     }
+
     private boolean isValid(Node node, int MIN, int MAX) {
         if(node == null)
             return true;
@@ -140,4 +143,6 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
         else
             return false;
     }
+
+
 }

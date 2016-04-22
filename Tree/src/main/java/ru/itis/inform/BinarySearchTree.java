@@ -15,4 +15,5 @@ public interface BinarySearchTree {
     boolean isBST();
 
     void change(int nowElement, int newElement);
+
 }
