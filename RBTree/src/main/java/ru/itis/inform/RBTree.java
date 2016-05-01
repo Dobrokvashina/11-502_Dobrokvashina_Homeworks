@@ -17,7 +17,7 @@ public class RBTree {
                 System.out.print("---");
             }
 
-            System.out.println(root.getData() + " " + root.getKey());
+            System.out.println(/*root.getData() + " " +*/ root.getKey());
 
             showRec(root.getLeft(), level + 1);
         }
@@ -168,6 +168,4 @@ public class RBTree {
         n.setParent(pivot);
         pivot.setRight(n);
     }
-
-
 }
