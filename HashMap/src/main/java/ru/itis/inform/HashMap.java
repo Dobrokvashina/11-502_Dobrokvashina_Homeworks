@@ -35,12 +35,14 @@ public class HashMap {
     public void put(String key, String value) {
         Entry newOne = new Entry(key, value);
         int ind = index(newOne.getHash());
+        int mayMax = 1;
         if (map.length == 0 || map[ind] == null) {
             map[ind] = newOne;
         } else {
             Entry cur = map[ind];
             while (cur != null && key != cur.getKey()) {
                 cur = cur.getNext();
+                mayMax++;
             }
             if (cur != null)
                 cur.setValue(value);
@@ -48,6 +50,9 @@ public class HashMap {
                 newOne.setNext(map[ind]);
                 map[ind] = newOne;
             }
+        }
+        if(mayMax > size) {
+            resize();
         }
     }
 
@@ -80,5 +85,25 @@ public class HashMap {
         } else {
             System.out.println("There is no such element");
         }
+    }
+
+
+    public void resize() {
+        Entry[] old = this.map;
+        size = size + 3;
+
+        map = new Entry[size];
+
+        for (int i = 0; i < old.length; i++) {
+            if (old[i] != null) {
+                put(old[i].getKey(), old[i].getValue());
+                Entry cur = old[i];
+                while (cur.getNext() != null) {
+                    cur = cur.getNext();
+                    put(cur.getKey(), cur.getValue());
+                }
+            }
+        }
+
     }
 }

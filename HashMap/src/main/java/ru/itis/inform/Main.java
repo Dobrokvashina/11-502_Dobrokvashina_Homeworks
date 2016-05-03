@@ -4,7 +4,7 @@ package ru.itis.inform;
 public class Main {
     public static void main(String[] args) {
 
-        HashMap map = new HashMap(8);
+        HashMap map = new HashMap(3);
 
         System.out.println("----Исходник----");
 
