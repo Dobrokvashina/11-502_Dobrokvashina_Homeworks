@@ -90,7 +90,7 @@ public class HashMap {
 
     public void resize() {
         Entry[] old = this.map;
-        size = size + 3;
+        size = size*2;
 
         map = new Entry[size];
 

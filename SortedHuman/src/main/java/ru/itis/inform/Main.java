@@ -17,9 +17,6 @@ public class Main {
 
         humans = sorter.sort(humans);
 
-        Iterator<Human> iterator = humans.iterator();
-
-
         readerWriter.writeHumans("C:\\Users/Саоша/HumanOutput.txt", humans);
 
     }
