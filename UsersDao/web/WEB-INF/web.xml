@@ -1,0 +1,28 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://java.sun.com/xml/ns/javaee"
+                   xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+                   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+                   id="WebApp_ID" version="2.5">
+
+    <servlet>
+        <servlet-name>users</servlet-name>
+        <jsp-file>/Users.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>users</servlet-name>
+        <url-pattern>/users/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>psql</servlet-name>
+        <jsp-file>/PSQLRequest.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>psql</servlet-name>
+        <url-pattern>/psql</url-pattern>
+    </servlet-mapping>
+
+</web-app>
