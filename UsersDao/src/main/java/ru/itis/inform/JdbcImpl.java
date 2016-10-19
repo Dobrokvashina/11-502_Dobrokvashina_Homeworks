@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.sql.*;
-import org.postgresql.*;
 
 
 public class JdbcImpl implements UsersDao{
@@ -82,7 +81,6 @@ public class JdbcImpl implements UsersDao{
         if (find) {
             return hereYouAre;
         }else {
-            new IllegalArgumentException("There is no such man...");
             return null;
         }
     }
