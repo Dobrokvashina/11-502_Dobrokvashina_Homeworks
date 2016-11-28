@@ -98,7 +98,7 @@ public class UserPointsDAOImpl implements UserPointsDAO {
             preparedStatement = connection.prepareStatement("INSERT INTO user_points VALUES (?,?,?)");
             preparedStatement.setInt(1,user_id);
             preparedStatement.setInt(2,sub_id);
-            preparedStatement.setInt(2,points);
+            preparedStatement.setInt(3,points);
             preparedStatement.executeUpdate();
 
 

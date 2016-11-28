@@ -7,9 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Саоша on 17.11.2016.
- */
+
 public class PaintMain {
     JButton clearBtn, colorBtn, bColorBtn, rotateBtn;
     JSlider sizeBrush;
@@ -24,7 +22,7 @@ public class PaintMain {
 
     public void show() {
         JFrame frame = new JFrame("Painter");
-        frame.setSize(800, 800);
+        frame.setSize(800, 865);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container content = frame.getContentPane();
@@ -56,7 +54,7 @@ public class PaintMain {
         controls.add(colorBtn);
         controls.add(sizeBrush);
         controls.add(bColorBtn);
-//        controls.add(rotateBtn);
+        controls.add(rotateBtn);
 
 
 
@@ -76,10 +74,9 @@ public class PaintMain {
                 drawArea.chooseBrushColor();
             } else if(e.getSource() == bColorBtn) {
                 drawArea.chooseBackColor();
+            } else if(e.getSource() == rotateBtn) {
+                drawArea.Srotate();
             }
-//            else if(e.getSource() == rotateBtn) {
-//                drawArea.rotate(30);
-//            }
         }
     };
 

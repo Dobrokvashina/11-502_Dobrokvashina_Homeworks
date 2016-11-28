@@ -34,7 +34,7 @@ body {
 .myPageDiv {
     background-color: #fff;
     width: 900px;
-    height: 1500px;
+    height: auto;
     border-radius: 4px;
     margin: auto;
     position: static;

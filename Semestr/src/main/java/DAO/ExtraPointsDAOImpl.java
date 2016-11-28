@@ -96,20 +96,16 @@ class ExtraPointsDAOImpl implements ExtraPointsDAO {
             ResultSet res = preparedStatement.executeQuery();
 
 
-
-           // ResultSet res = st.executeQuery(
-            //        "SELECT * FROM ExtraPoints WHERE univ_id =" + univ_id
-           // );
             int i = 0;
             while (res.next()) {
-                int[] point = new int[6];
+                int[] point = new int[3];
                 point[0] = res.getInt("univ_id");
                 point[1] = res.getInt("ach_id");
                 point[2] = res.getInt("points");
                 i++;
                 points.add(point);
             }
-            ePoints = new int[i][6];
+            ePoints = new int[i][3];
             for (int k=0; k<i; k++) {
                 ePoints[k] = points.get(k);
             }

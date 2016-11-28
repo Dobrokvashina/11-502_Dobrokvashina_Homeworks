@@ -118,9 +118,9 @@ class UserAchiveDAOImpl implements UserAchiveDAO {
 
         try {
 
-            preparedStatement = connection.prepareStatement("DELETE FROM user_achive WHERE (user_id =?, ach_id =?)");
+            preparedStatement = connection.prepareStatement("DELETE FROM user_achive WHERE (user_id =? AND ach_id =?)");
             preparedStatement.setInt(1,user_id);
-            preparedStatement.setInt(1,ach_id);
+            preparedStatement.setInt(2,ach_id);
             preparedStatement.executeUpdate();
 
 

@@ -16,6 +16,7 @@
 <body>
 <div class="LogInDiv">
 
+
     <h1>Вход</h1>
 
     <p id="whatToDo">Заполните логин и пароль</p>
@@ -29,11 +30,8 @@
     <br>
     <label for="Password1">Пароль</label> <br>
     <input name="password1" type="password" id="Password1" placeholder="Пароль">
-    <br>
+    <br><div class="LogInDiv">
     <input type="submit" class="SubmitBotton">
-    <%--Логин: <input name="login" type="text"><br>--%>
-    <%--Пароль: <input name="password1" type="password"><br>--%>
-    <%--<input type="submit"><br>--%>
 </form>
 
 <a class="GoTo" href="/registration">Зарегистрироваться</a><br>

@@ -25,17 +25,12 @@ class CostDAOImpl implements CostDAO {
         int[] cost = new int[5];
 
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM costs WHERE (univ_id =? AND  spec_id =?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM costs WHERE (univ_id =? AND  spec_id =?)");
             preparedStatement.setInt(1,univ_id);
             preparedStatement.setInt(2,spec_id);
             ResultSet res = preparedStatement.executeQuery();
 
 
-
-
-           // ResultSet res = st.executeQuery(
-            //        "SELECT * FROM costs WHERE (univ_id =" + univ_id + " AND  spec_id =" + spec_id +")"
-           // );
 
             while (res.next()) {
                 cost[0] = univ_id;

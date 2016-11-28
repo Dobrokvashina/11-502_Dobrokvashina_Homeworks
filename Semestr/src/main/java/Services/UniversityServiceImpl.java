@@ -37,6 +37,8 @@ public class UniversityServiceImpl implements UniversityService {
             statement = connection.createStatement();
             verifier = VerifierFactory.getVerifier();
             subDao = DAOFactory.getSubjectsDAO();
+            EPoinDAO = DAOFactory.getExtraPointsDAO();
+            achDAO = DAOFactory.getAchivementsDAO();
             specDAO = DAOFactory.getSpecialityDAO();
             univDAO = DAOFactory.getUniversitiesDAO();
             cosDAO = DAOFactory.getCostDAO();
