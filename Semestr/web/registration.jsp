@@ -41,12 +41,13 @@
     <input name="login" type="text" id="Login" placeholder="Логин">
     <br>
     <label for="Password1">Пароль</label> <br>
-    <input name="password1" type="password1" id="Password1" placeholder="Пароль">
+    <input name="password1" type="password" id="Password1" placeholder="Пароль">
     <br>
     <label for="Password2">Повторите пароль</label> <br>
-    <input name="password2" type="password2" id="Password2" placeholder="Подтверждение">
+    <input name="password2" type="password" id="Password2" placeholder="Подтверждение">
     <br>
 
+    <input type="submit" class="SubmitBotton">
 </form>
 
 <a class="GoTo" href="/login">Уже есть аккаунт?</a><br>
