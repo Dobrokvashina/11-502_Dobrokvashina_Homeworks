@@ -14,13 +14,23 @@ import java.io.IOException;
  * Created by Саоша on 07.11.2016.
  */
 public class UniverServlet extends HttpServlet {
+
+    private UniversityService serv;
+    private UserService uServ;
+
+    @Override
+    public void init() throws ServletException {
+
+        serv = ServiceFactory.getUniversityService();
+        uServ = ServiceFactory.getUserService();
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UniversityService serv = ServiceFactory.getUniversityService();
+
         if(req.getParameter("id") != null && serv.getUniversity(Integer.parseInt(req.getParameter("id")), false) != null) {
             int id = Integer.parseInt(req.getParameter("id"));
             req.setAttribute("univ", serv.getUniversity(id, true));
-            UserService uServ = ServiceFactory.getUserService();
+
             if (req.getSession().getAttribute("current_user") != null && uServ.getUser((String)req.getSession().getAttribute("current_user"))!=null) {
                 req.setAttribute("userS", uServ);
                 req.setAttribute("user",uServ.getUser((String)req.getSession().getAttribute("current_user")) );

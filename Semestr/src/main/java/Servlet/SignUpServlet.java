@@ -14,6 +14,13 @@ import java.io.IOException;
  * Created by Саоша on 06.11.2016.
  */
 public class SignUpServlet extends HttpServlet {
+
+    private UserService userService;
+    @Override
+    public void init() throws ServletException {
+
+        userService = ServiceFactory.getUserService();
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/registration.jsp").forward(req, resp);
@@ -21,7 +28,6 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService userService = ServiceFactory.getUserService();
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String country = req.getParameter("country");

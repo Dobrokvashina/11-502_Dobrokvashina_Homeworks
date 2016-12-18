@@ -23,22 +23,31 @@ import java.util.function.Supplier;
  */
 public class MyPageServlet extends HttpServlet {
 
+    private UserService userService;
+    @Override
+    public void init() throws ServletException {
+
+        userService = ServiceFactory.getUserService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getSession().getAttribute("current_user") != null) {
             if(req.getParameter("exit") != null) {
-                UserService userService = ServiceFactory.getUserService();
                 User user = userService.getUser((String)req.getSession().getAttribute("current_user"));
                 userService.saveToken(user.getId(), null);
                 req.getSession().setAttribute("current_user", null);
+                req.getSession().setAttribute("admin", null);
                 Cookie cookie = new Cookie("MSiteCookie", null);
+                resp.addCookie(cookie);
                 req.getRequestDispatcher("/login").forward(req,resp);
             } else {
-                UserService userService = ServiceFactory.getUserService();
-                User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
-                req.setAttribute("user", user);
-                req.setAttribute("subs", userService.getAllSubjectsWithUsers(user.getId()));
-                req.setAttribute("achs", userService.getAllAchivementsWithUsers(user.getId()));
+                if(!req.getSession().getAttribute("current_user").equals("admin")) {
+                    User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
+                    req.setAttribute("user", user);
+                    req.setAttribute("subs", userService.getAllSubjectsWithUsers(user.getId()));
+                    req.setAttribute("achs", userService.getAllAchivementsWithUsers(user.getId()));
+                }
                 req.getRequestDispatcher("/myPage.jsp").forward(req, resp);
             }
         } else {
@@ -48,9 +57,8 @@ public class MyPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService serv = ServiceFactory.getUserService();
-        User user = serv.getUser((String)req.getSession().getAttribute("current_user"));
-        Iterator<Subject> iter = serv.getAllSubjects().iterator();
+        User user = userService.getUser((String)req.getSession().getAttribute("current_user"));
+        Iterator<Subject> iter = userService.getAllSubjects().iterator();
         List<Subject> subs = new LinkedList<Subject>();
         Subject cur;
         while (iter.hasNext()) {
@@ -59,7 +67,7 @@ public class MyPageServlet extends HttpServlet {
             subs.add(cur);
         }
 
-        Iterator<Achivement> iter1 = serv.getAllAchivements().iterator();
+        Iterator<Achivement> iter1 = userService.getAllAchivements().iterator();
         List<Achivement> achs = new LinkedList<Achivement>();
         Achivement curr;
         while (iter1.hasNext()) {
@@ -69,7 +77,7 @@ public class MyPageServlet extends HttpServlet {
             achs.add(curr);
         }
 
-        serv.SetSubsAndAchiv(user.getId(),subs,achs);
+        userService.SetSubsAndAchiv(user.getId(),subs,achs);
         resp.sendRedirect("/myPage");
     }
 }

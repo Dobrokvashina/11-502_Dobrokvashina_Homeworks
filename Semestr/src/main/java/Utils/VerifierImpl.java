@@ -23,10 +23,10 @@ class VerifierImpl implements Verifier {
 
     }
 
-    public boolean existAchivement(int userId) {
+    public boolean existAchivement(int achId) {
         try {
             ResultSet resultSet = st.executeQuery(
-                    "SELECT * FROM achivements WHERE (id =" + userId + ")"
+                    "SELECT * FROM achivements WHERE (id =" + achId + ")"
             );
 
             if (!resultSet.next()) {
@@ -200,6 +200,9 @@ class VerifierImpl implements Verifier {
     }
 
     public boolean existUser(int id) {
+        if(id == 0) {
+            return true;
+        }
         try {
             ResultSet resultSet = st.executeQuery(
                     "SELECT * FROM users WHERE (id =" + id + ")"
@@ -232,6 +235,9 @@ class VerifierImpl implements Verifier {
     }
 
     public boolean existUser(String login) {
+        if (login.equals("admin")) {
+            return true;
+        }
         try {
             ResultSet resultSet = st.executeQuery(
                     "SELECT * FROM users WHERE (user_login = '" + login + "')"

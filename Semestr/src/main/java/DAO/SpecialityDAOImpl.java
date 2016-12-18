@@ -31,18 +31,18 @@ class SpecialityDAOImpl implements SpecialityDAO {
         try {
 
             preparedStatement = connection.prepareStatement("SELECT * FROM specialities WHERE (id =?)");
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             ResultSet res = preparedStatement.executeQuery();
 
 
-           // ResultSet res = st.executeQuery(
-           //         "SELECT * FROM specialities WHERE (id =" + id + ")"
-           // );
+            // ResultSet res = st.executeQuery(
+            //         "SELECT * FROM specialities WHERE (id =" + id + ")"
+            // );
             res.next();
             SubjectsDAO subjectsDAO = DAOFactory.getSubjectsDAO();
             List<Subject> subjects = new LinkedList<Subject>();
             String string = "subject1";
-            int i =2;
+            int i = 2;
             Subject subject;
             while (res.getInt(string) != 0 && (i < 6)) {
                 subject = subjectsDAO.find(res.getInt(string));
@@ -67,14 +67,10 @@ class SpecialityDAOImpl implements SpecialityDAO {
             ResultSet res = preparedStatement.executeQuery();
 
 
-            //ResultSet res = st.executeQuery(
-           //         "SELECT * FROM specialities"
-           // );
-
             SubjectsDAO subjectsDAO = DAOFactory.getSubjectsDAO();
             List<Subject> subjects;
             Subject subject;
-            while(res.next()) {
+            while (res.next()) {
                 subjects = new LinkedList<Subject>();
                 String string = "subject1";
                 int i = 2;
@@ -87,7 +83,7 @@ class SpecialityDAOImpl implements SpecialityDAO {
                 Speciality spec = new Speciality(res.getInt("id"), res.getString("spec_name"), subjects, res.getString("about"));
                 specialities.add(spec);
             }
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return specialities;
@@ -96,36 +92,27 @@ class SpecialityDAOImpl implements SpecialityDAO {
 
     public void save(Speciality speciality) {
 
-        List<Subject> subjects = speciality.getSubjects();
-
-        if (subjects.size() < 5) {
-            int dif = 5 - subjects.size();
-            for (int i = 0; i < dif; i++) {
-                subjects.add(new Subject(0, ""));
-            }
-        }
-
         Iterator<Subject> iter = speciality.getSubjects().iterator();
 
         try {
 
             preparedStatement = connection.prepareStatement("INSERT INTO specialities(spec_name, subject1, subject2, subject3, subject4, subject5, about) VALUES (?,?,?,?,?,?,?");
-            preparedStatement.setString(1,speciality.getName());
-            preparedStatement.setInt(2,iter.next().getId());
-            preparedStatement.setInt(3,iter.next().getId());
-            preparedStatement.setInt(4,iter.next().getId());
-            preparedStatement.setInt(5,iter.next().getId());
-            preparedStatement.setInt(6,iter.next().getId());
-            preparedStatement.setString(7,speciality.getAbout());
+            preparedStatement.setString(1, speciality.getName());
+            preparedStatement.setInt(2, iter.next().getId());
+            preparedStatement.setInt(3, iter.next().getId());
+            if (iter.hasNext())
+                preparedStatement.setInt(4, iter.next().getId());
+            if (iter.hasNext())
+                preparedStatement.setInt(5, iter.next().getId());
+            if (iter.hasNext())
+                preparedStatement.setInt(6, iter.next().getId());
+            preparedStatement.setString(7, speciality.getAbout());
             preparedStatement.executeUpdate();
-
-
-
 
 
             //st.executeUpdate(
             //        "INSERT INTO specialities(spec_name, subject1, subject2, subject3, subject4, subject5, about) VALUES ( '" + speciality.getName() + "', " + iter.next().getId() + ", " + iter.next().getId() + "," + iter.next().getId() + ", " + iter.next().getId() + ", " + iter.next().getId() + ", '" + speciality.getAbout()  + "')"
-           // );
+            // );
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,11 +125,8 @@ class SpecialityDAOImpl implements SpecialityDAO {
         try {
 
             preparedStatement = connection.prepareStatement("DELETE FROM specialities WHERE (id =?)");
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-
-
-
 
 
             //st.executeUpdate(
@@ -156,35 +140,49 @@ class SpecialityDAOImpl implements SpecialityDAO {
 
 
     public void update(Speciality speciality) {
+
+
         List<Subject> subjects = speciality.getSubjects();
-
-        if (subjects.size() < 5) {
-            int dif = 5 - subjects.size();
-            for (int i = 0; i < dif; i++) {
-                subjects.add(new Subject(0, ""));
-            }
-        }
-
-        Iterator<Subject> iter = speciality.getSubjects().iterator();
+        Iterator<Subject> iter = subjects.iterator();
 
         try {
 
-            preparedStatement = connection.prepareStatement("UPDATE specialities SET spec_name =?, subject1 =?, subject2 =?, subject3 =?, subject4 =?, subject5 =?, about =? WHERE id =?");
-            preparedStatement.setString(1,speciality.getName());
-            preparedStatement.setInt(2,iter.next().getId());
-            preparedStatement.setInt(3,iter.next().getId());
-            preparedStatement.setInt(4,iter.next().getId());
-            preparedStatement.setInt(5,iter.next().getId());
-            preparedStatement.setInt(6,iter.next().getId());
-            preparedStatement.setString(7,speciality.getAbout());
-            preparedStatement.setInt(8,speciality.getId());
+            switch (subjects.size()) {
+                case 3:
+                    preparedStatement = connection.prepareStatement("UPDATE specialities SET spec_name =?, subject1 =?, subject2 =?, subject3 =?, subject4 =NULL , subject5 =NULL, about =? WHERE id =?");
+                    preparedStatement.setString(1, speciality.getName());
+                    preparedStatement.setInt(2, iter.next().getId());
+                    preparedStatement.setInt(3, iter.next().getId());
+                    preparedStatement.setInt(4, iter.next().getId());
+                    preparedStatement.setString(5, speciality.getAbout());
+                    preparedStatement.setInt(6, speciality.getId());
+                    break;
+                case 4:
+                    preparedStatement = connection.prepareStatement("UPDATE specialities SET spec_name =?, subject1 =?, subject2 =?, subject3 =?, subject4 =? , subject5 =NULL, about =? WHERE id =?");
+                    preparedStatement.setString(1, speciality.getName());
+                    preparedStatement.setInt(2, iter.next().getId());
+                    preparedStatement.setInt(3, iter.next().getId());
+                    preparedStatement.setInt(4, iter.next().getId());
+                    preparedStatement.setInt(5, iter.next().getId());
+                    preparedStatement.setString(6, speciality.getAbout());
+                    preparedStatement.setInt(7, speciality.getId());
+                    break;
+                default:
+                    preparedStatement = connection.prepareStatement("UPDATE specialities SET spec_name =?, subject1 =?, subject2 =?, subject3 =?, subject4 =?, subject5 =?, about =? WHERE id =?");
+                    preparedStatement.setString(1, speciality.getName());
+                    preparedStatement.setInt(2, iter.next().getId());
+                    preparedStatement.setInt(3, iter.next().getId());
+                    preparedStatement.setInt(4, iter.next().getId());
+                    preparedStatement.setInt(5, iter.next().getId());
+                    preparedStatement.setInt(6, iter.next().getId());
+                    preparedStatement.setString(7, speciality.getAbout());
+                    preparedStatement.setInt(8, speciality.getId());
+                    break;
+
+            }
             preparedStatement.executeUpdate();
 
 
-
-           // st.executeUpdate(
-            //        "UPDATE specialities SET spec_name = '" + speciality.getName() + "', subject1 = " + iter.next().getId() + ", subject2 = " + iter.next().getId() + ", subject3 = " + iter.next().getId() + ", subject4 = " + iter.next().getId() + ", subject5 = " + iter.next().getId() + ", about = '" + speciality.getAbout() + "' WHERE id =" + speciality.getId()
-           // );
         } catch (SQLException e) {
             e.printStackTrace();
         }

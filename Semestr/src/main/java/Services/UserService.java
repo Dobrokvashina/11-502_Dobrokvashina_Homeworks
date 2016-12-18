@@ -41,4 +41,6 @@ public interface UserService {
     int getAllPoint(int userId);
 
     int getPointInSpec(int userId, int univId, int specId);
+
+    void delete(int userId);
 }

@@ -108,5 +108,15 @@ public class Speciality {
         this.name = name;
     }
 
+    public boolean hasSubject(int specId) {
+        Iterator<Subject> it = subjects.iterator();
+        while (it.hasNext()) {
+            if(it.next().getId() ==specId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

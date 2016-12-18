@@ -3,6 +3,7 @@ import Classes.University;
 import DAO.AchivementsDAO;
 import DAO.DAOFactory;
 import DAO.ExtraPointsDAO;
+import Services.AdminService;
 import Services.ServiceFactory;
 import Services.UniversityService;
 import Services.UserService;
@@ -40,6 +41,9 @@ public class Main {
 //        Iterator<Achivement> list = dao.findAll().iterator();
 //        System.out.println(list.next().getId());
 
+        AdminService serv = ServiceFactory.getAdminService();
+
+        System.out.println(serv.checkAdmin("admin", "R1987-2014"));
 
 
 

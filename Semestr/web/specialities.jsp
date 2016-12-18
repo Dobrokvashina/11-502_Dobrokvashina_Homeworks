@@ -36,12 +36,20 @@
     <tr>
         <th>Название</th>
         <th>Предметы</th>
+        <c:if test="${admin != null}">
+            <th>  </th>
+            <th>  </th>
+        </c:if>
     </tr>
 
     <c:forEach items="${specs}" var="spec">
         <tr>
             <td><a href="/specialities?id=${spec.id}">${spec.name}</a></td>
             <td><c:out value="${spec.getSubjToString()}"></c:out></td>
+            <c:if test="${admin != null}">
+                <td><a href="/specialities?id=${spec.id}&change=true">Изменить</a></td>
+                <td><a href="/specialities?delete=${spec.id}">Удалить</a></td>
+            </c:if>
         </tr>
     </c:forEach>
 

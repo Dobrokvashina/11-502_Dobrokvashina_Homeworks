@@ -17,38 +17,41 @@
 
 <div class="myPageDiv">
 
-<h1>Рады видеть Вас, ${user.surname} ${user.name}</h1>
+    <h1>Рады видеть Вас, ${user.surname} ${user.name}</h1>
 
     <a class="UpGoTo" href="/index.jsp">Домой</a><br>
-    <a class="UpGoTo" href="/myPage?exit=true" >Выйти из аккаунта </a><br>
+    <a class="UpGoTo" href="/myPage?exit=true">Выйти из аккаунта </a><br>
 
-<p id="whatToDo">Здесь вы можете добавить или изменить баллы полученные за экзамен, а также добавить свои достижения.</p>
+    <c:if test="${user.id != 0}">
 
-<hr>
-
-<form action="/myPage" method="post" >
-
-    <label class="labelLK">Баллы по предметам:</label><br><br>
-    <c:forEach items="${subs}" var="sub">
-
-        <label class="labelLK" for="sub+${sub.id}">${sub.name}</label> <br>
-        <input name="${sub.name}" type="number" id="sub+${sub.id}" value="${sub.point}">
-        <br>
-        <%----%>
-       <%--${sub.name}<input name="${sub.name}" value="${sub.point}" type="number"><br>--%>
-    </c:forEach><br>
+        <p id="whatToDo">Здесь вы можете добавить или изменить баллы полученные за экзамен, а также добавить свои
+            достижения. Или посмотреть, какие специальности вам доступны, с нынешними данными</p>
 
 
-    <label class="labelLK">Достижения:</label><br><br>
-    <c:forEach items="${achs}" var="ach">
-        <label  class="labelLK" for="ach+${ach.id}">${ach.type}</label> <br>
-        <input id="ach+${ach.id}" name="${ach.type}" type="checkbox"
-        <c:if test="${ach.chosen}"> checked</c:if>>
-        <br>
-    </c:forEach>
+        <hr>
 
-    <input type="submit" class="SubmitBotton">
-</form>
+        <form action="/myPage" method="post">
+
+            <label class="labelLK">Баллы по предметам:</label><br><br>
+            <c:forEach items="${subs}" var="sub">
+
+                <label class="labelLK" for="sub+${sub.id}">${sub.name}</label> <br>
+                <input name="${sub.name}" type="number" id="sub+${sub.id}" value="${sub.point}">
+                <br>
+            </c:forEach><br>
+
+
+            <label class="labelLK">Достижения:</label><br><br>
+            <c:forEach items="${achs}" var="ach">
+                <label class="labelLK" for="ach+${ach.id}">${ach.type}</label> <br>
+                <input id="ach+${ach.id}" name="${ach.type}" type="checkbox"
+                <c:if test="${ach.chosen}"> checked</c:if>>
+                <br>
+            </c:forEach>
+
+            <input type="submit" class="SubmitBotton">
+        </form>
+    </c:if>
 
 </div>
 </body>

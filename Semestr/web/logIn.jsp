@@ -30,7 +30,7 @@
     <br>
     <label for="Password1">Пароль</label> <br>
     <input name="password1" type="password" id="Password1" placeholder="Пароль">
-    <br><div class="LogInDiv">
+    <br>
     <input type="submit" class="SubmitBotton">
 </form>
 

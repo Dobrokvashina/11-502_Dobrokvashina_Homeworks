@@ -39,6 +39,10 @@
             <th>Страна</th>
             <th>Город</th>
             <th>Адрес</th>
+            <c:if test="${admin != null}">
+                <th>  </th>
+                <th>  </th>
+            </c:if>
         </tr>
 
         <c:forEach items="${univs}" var="univ">
@@ -47,6 +51,10 @@
                 <td><c:out value="${univ.country}"></c:out></td>
                 <td><c:out value="${univ.city}"></c:out></td>
                 <td><c:out value="${univ.address}"></c:out></td>
+                <c:if test="${admin != null}">
+                    <td><a href="/universities?id=${univ.id}&change=true">Изменить</a></td>
+                    <td><a href="/universities?delete=${univ.id}">Удалить</a></td>
+                </c:if>
             </tr>
         </c:forEach>
 

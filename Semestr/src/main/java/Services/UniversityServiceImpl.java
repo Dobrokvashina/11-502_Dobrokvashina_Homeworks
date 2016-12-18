@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Саоша on 30.10.2016.
  */
-public class UniversityServiceImpl implements UniversityService {
+class UniversityServiceImpl implements UniversityService {
 
     Connection connection;
     Statement statement;

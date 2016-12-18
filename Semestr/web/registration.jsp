@@ -46,16 +46,7 @@
     <label for="Password2">Повторите пароль</label> <br>
     <input name="password2" type="password2" id="Password2" placeholder="Подтверждение">
     <br>
-    <input type="submit" class="SubmitBotton">
 
-    <%--Имя: <input name="name" type="text"><br>--%>
-    <%--Фамилия: <input name="surname" type="text"><br>--%>
-    <%--Страна: <input name="country" type="text"><br>--%>
-    <%--Город: <input name="city" type="text"><br>--%>
-    <%--Логин: <input name="login" type="text"><br>--%>
-    <%--Пароль: <input name="password1" type="password"><br>--%>
-    <%--Повторите пароль: <input name="password2" type="password"><br>--%>
-    <%--<input type="submit">--%>
 </form>
 
 <a class="GoTo" href="/login">Уже есть аккаунт?</a><br>

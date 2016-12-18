@@ -1,6 +1,7 @@
 package Servlet;
 
 import Classes.User;
+import Services.AdminService;
 import Services.ServiceFactory;
 import Services.UserService;
 
@@ -16,6 +17,14 @@ import java.io.IOException;
  */
 public class LogInServlet extends HttpServlet {
 
+    private UserService userService;
+    private AdminService adminService;
+    @Override
+    public void init() throws ServletException {
+        adminService = ServiceFactory.getAdminService();
+        userService = ServiceFactory.getUserService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -28,8 +37,16 @@ public class LogInServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password1");
 
+        if(adminService.checkAdmin(login, password)) {
+            Cookie cookie = userService.generateCookies();
+            cookie.setMaxAge(60*60);
+            userService.saveToken(0, cookie.getValue());
+            resp.addCookie(cookie);
+            req.getSession().setAttribute("current_user", login);
+            req.getSession().setAttribute("admin", "true");
+            resp.sendRedirect("/myPage");
+        } else {
 
-        UserService userService = ServiceFactory.getUserService();
         if (login.equals("") || password.equals("") || !userService.isRegistered(login) || !userService.checkPassword(login, password)){
             resp.sendRedirect("/login");
         }else{
@@ -40,6 +57,7 @@ public class LogInServlet extends HttpServlet {
             resp.addCookie(cookie);
             req.getSession().setAttribute("current_user", req.getParameter("login"));
             resp.sendRedirect("/myPage");
+        }
         }
     }
 }

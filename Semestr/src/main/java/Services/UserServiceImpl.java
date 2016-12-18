@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Саоша on 30.10.2016.
  */
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 
     Connection connection;
     Statement statement;
@@ -177,6 +177,9 @@ public class UserServiceImpl implements UserService {
         while (iterator.hasNext()) {
             now = iterator.next();
             if (now.getToken().equals(token)) {
+                if(now.getUserId() == 0){
+                    return ServiceFactory.getAdminService().getAdmin();
+                }
                 return getUser(now.getUserId());
             }
         }
@@ -184,6 +187,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUser(int id) {
+        if(id == 0) {
+            return ServiceFactory.getAdminService().getAdmin();
+        }
         if (verifier.existUser(id)) {
 
             User user = userDao.find(id);
@@ -217,6 +223,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUser(String login) {
+        if(login.equals("admin")) {
+            return ServiceFactory.getAdminService().getAdmin();
+        }
         if (verifier.existUser(login)) {
 
             User user = userDao.find(login);
@@ -297,6 +306,15 @@ public class UserServiceImpl implements UserService {
 
         }
         return sum;
+    }
+
+    @Override
+    public void delete(int userId) {
+        if (verifier.existUser(userId)) {
+            userDao.delete(userId);
+        } else {
+            System.out.println("There is no such user with id = " + userId);
+        }
     }
 
 

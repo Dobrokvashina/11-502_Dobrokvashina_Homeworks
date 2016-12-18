@@ -25,40 +25,97 @@
         <a class="UpGoTo" href="/registration">Зарегистрироваться</a><br>
     </c:if>
 
-    <h1>Специальность: ${spec.name}</h1><br>
-    <hr>
-    <p class="labelLK">Предметы:
-    <c:forEach items="${spec.subjects}" var="sub">
-        ${sub.name}
-    </c:forEach>
-    <br>
-    <c:if test="${spec.about !=null}">
-        О специальности: ${spec.about}<br>
-    </c:if>
-     Университеты, имеющие эту специальность:</p><br>
+    <c:if test="${change == null}">
 
-    <table>
-        <tbody>
-        <tr>
-            <th>Университет</th>
-            <th>Страна</th>
-            <th>Город</th>
-        </tr>
+        <h1>Специальность: ${spec.name}</h1><br>
+        <hr>
+        <p class="labelLK">Предметы:
+            <c:forEach items="${spec.subjects}" var="sub">
+                ${sub.name}
+            </c:forEach>
+            <br>
+            <c:if test="${spec.about !=null}">
+                О специальности: ${spec.about}<br>
+            </c:if>
+            Университеты, имеющие эту специальность:</p><br>
 
-        <c:forEach items="${univs}" var="univ">
+        <table>
+            <tbody>
             <tr>
-                <td><a href="/universities?id=${univ.id}">${univ.name}</a></td>
-                <td><c:out value="${univ.country}"></c:out></td>
-                <td><c:out value="${univ.city}"></c:out></td>
+                <th>Университет</th>
+                <th>Страна</th>
+                <th>Город</th>
             </tr>
 
-        </c:forEach>
+            <c:forEach items="${univs}" var="univ">
+                <tr>
+                    <td><a href="/universities?id=${univ.id}">${univ.name}</a></td>
+                    <td><c:out value="${univ.country}"></c:out></td>
+                    <td><c:out value="${univ.city}"></c:out></td>
+                </tr>
 
-        </tbody>
-    </table>
+            </c:forEach>
 
-    <a class="GoTo" href="/specialities"> Вернуться к списку специальностей</a><br>
-    <a class="GoTo" href="/index.jsp">Домой</a><br>
+            </tbody>
+        </table>
+
+        <a class="GoTo" href="/specialities"> Вернуться к списку специальностей</a><br>
+        <a class="GoTo" href="/index.jsp">Домой</a><br>
+
+
+    </c:if>
+
+    <c:if test="${(admin != null)&& (change != null)}">
+
+        <form action="/specialities?id=${spec.id}" method="post" >
+
+            <label class="labelLK" for="specName">Специальность: </label>
+            <input name="specName" type="text" id="specName" value="${spec.name}">
+            <br>
+
+            <label class="labelLK" for="specAbout">О специальности: </label>
+            <input name="specAbout" type="text" id="specAbout" value="${spec.about}">
+            <br>
+
+            <label class="labelLK">Предметы:</label><br><br>
+            <c:forEach items="${subjects}" var="ach">
+                <label  class="labelLK" for="sub+${ach.id}">${ach.name}</label> <br>
+                <input id="sub+${ach.id}" name="${ach.name}" type="checkbox"
+                <c:if test="${spec.hasSubject(ach.id)}"> checked</c:if>>
+                <br>
+            </c:forEach>
+
+            <p class="labelLK">Университеты, имеющие эту специальность:<br>
+               (изменить данные о принадлежности к университетам можно на странице университета)</p><br>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Университет</th>
+                    <th>Страна</th>
+                    <th>Город</th>
+                </tr>
+
+                <c:forEach items="${univs}" var="univ">
+                    <tr>
+                        <td><a href="/universities?id=${univ.id}">${univ.name}</a></td>
+                        <td><c:out value="${univ.country}"></c:out></td>
+                        <td><c:out value="${univ.city}"></c:out></td>
+                    </tr>
+
+                </c:forEach>
+
+                </tbody>
+            </table>
+
+            <input type="submit" class="SubmitBotton">
+        </form>
+
+
+        <a class="GoTo" href="/specialities"> Вернуться к списку без сохранения</a><br>
+        <a class="GoTo" href="/index.jsp">Домой без сохранения</a><br>
+
+    </c:if>
 
 </div>
 </body>

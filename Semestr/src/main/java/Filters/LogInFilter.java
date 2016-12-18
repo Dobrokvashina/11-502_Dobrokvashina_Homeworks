@@ -20,14 +20,14 @@ public class LogInFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if(((HttpServletRequest)servletRequest).getSession().getAttribute("current_user") != null) {
+        if (((HttpServletRequest) servletRequest).getSession().getAttribute("current_user") != null) {
             servletRequest.getRequestDispatcher("/myPage").forward(servletRequest, servletResponse);
         } else {
             UserService serv = ServiceFactory.getUserService();
             String token = null;
             Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
-            for (Cookie cookie: cookies) {
-                if(cookie.getName().equals("MSiteCookie")) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("MSiteCookie")) {
                     token = cookie.getValue();
                 }
             }
@@ -36,6 +36,8 @@ public class LogInFilter implements Filter {
                 User user = serv.isExistToken(token);
                 if (user != null) {
                     ((HttpServletRequest) servletRequest).getSession().setAttribute("current_user", user.getLogin());
+                    if (user.getId() == 0)
+                        ((HttpServletRequest) servletRequest).getSession().setAttribute("admin", "admin");
                     servletRequest.getRequestDispatcher("/myPage").forward(servletRequest, servletResponse);
                 } else {
                     servletRequest.getRequestDispatcher("/login").forward(servletRequest, servletResponse);

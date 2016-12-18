@@ -85,4 +85,30 @@ public class ServiceFactory {
 
     }
 
+
+    public static AdminService getAdminService() {
+
+        AdminService adminService = null;
+
+        try {
+
+            adminService = (AdminService) Class.forName(properties.getProperty("admServ.class")).newInstance();
+
+        } catch (InstantiationException e) {
+
+            e.printStackTrace();
+
+        } catch (IllegalAccessException e) {
+
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return adminService;
+
+    }
 }

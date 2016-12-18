@@ -36,6 +36,8 @@ public class SignInFilter implements Filter {
                 User user = serv.isExistToken(token);
                 if (user != null) {
                     ((HttpServletRequest) servletRequest).getSession().setAttribute("current_user", user.getLogin());
+                    if (user.getId() == 0)
+                        ((HttpServletRequest) servletRequest).getSession().setAttribute("admin", "admin");
                     servletRequest.getRequestDispatcher("/myPage").forward(servletRequest, servletResponse);
                 } else {
                     servletRequest.getRequestDispatcher("/registration").forward(servletRequest, servletResponse);
