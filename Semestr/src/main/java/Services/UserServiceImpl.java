@@ -317,5 +317,13 @@ class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<String> getRexPoints(int userId) {
+        if(verifier.existUser(userId)) {
+            return userDao.getResPoints(userId);
+        }
+         return new LinkedList<String>();
+    }
+
 
 }

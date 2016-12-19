@@ -43,4 +43,6 @@ public interface UserService {
     int getPointInSpec(int userId, int univId, int specId);
 
     void delete(int userId);
+
+    List<String> getRexPoints(int userId);
 }

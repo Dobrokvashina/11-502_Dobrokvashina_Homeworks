@@ -192,4 +192,21 @@ class UsersDAOImpl implements UsersDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<String> getResPoints(int userId) {
+        List<String> list = new LinkedList<String>();
+        try {
+            preparedStatement = connection.prepareStatement( "SELECT * FROM table_of_res_points WHERE (user_id = ?)");
+            preparedStatement.setInt(1,userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString("spec_name") + " : " + resultSet.getInt("points"));
+            }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+        return list;
+    }
 }

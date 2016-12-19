@@ -24,6 +24,7 @@ import java.util.function.Supplier;
 public class MyPageServlet extends HttpServlet {
 
     private UserService userService;
+
     @Override
     public void init() throws ServletException {
 
@@ -32,17 +33,22 @@ public class MyPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("current_user") != null) {
-            if(req.getParameter("exit") != null) {
-                User user = userService.getUser((String)req.getSession().getAttribute("current_user"));
+        if (req.getSession().getAttribute("current_user") != null) {
+            if (req.getParameter("specs") != null) {
+                User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
+                req.setAttribute("points", userService.getRexPoints(user.getId()));
+
+                req.getRequestDispatcher("/points.jsp").forward(req, resp);
+            } else if (req.getParameter("exit") != null) {
+                User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
                 userService.saveToken(user.getId(), null);
                 req.getSession().setAttribute("current_user", null);
                 req.getSession().setAttribute("admin", null);
                 Cookie cookie = new Cookie("MSiteCookie", null);
                 resp.addCookie(cookie);
-                req.getRequestDispatcher("/login").forward(req,resp);
+                req.getRequestDispatcher("/login").forward(req, resp);
             } else {
-                if(!req.getSession().getAttribute("current_user").equals("admin")) {
+                if (!req.getSession().getAttribute("current_user").equals("admin")) {
                     User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
                     req.setAttribute("user", user);
                     req.setAttribute("subs", userService.getAllSubjectsWithUsers(user.getId()));
@@ -57,7 +63,7 @@ public class MyPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = userService.getUser((String)req.getSession().getAttribute("current_user"));
+        User user = userService.getUser((String) req.getSession().getAttribute("current_user"));
         Iterator<Subject> iter = userService.getAllSubjects().iterator();
         List<Subject> subs = new LinkedList<Subject>();
         Subject cur;
@@ -72,12 +78,12 @@ public class MyPageServlet extends HttpServlet {
         Achivement curr;
         while (iter1.hasNext()) {
             curr = iter1.next();
-            if (req.getParameter(curr.getType())!=null)
-            curr.setChosen(true);
+            if (req.getParameter(curr.getType()) != null)
+                curr.setChosen(true);
             achs.add(curr);
         }
 
-        userService.SetSubsAndAchiv(user.getId(),subs,achs);
+        userService.SetSubsAndAchiv(user.getId(), subs, achs);
         resp.sendRedirect("/myPage");
     }
 }

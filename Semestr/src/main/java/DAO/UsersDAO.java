@@ -17,4 +17,5 @@ public interface UsersDAO {
 
     void update(User user);
 
+    List<String> getResPoints(int userId);
 }
