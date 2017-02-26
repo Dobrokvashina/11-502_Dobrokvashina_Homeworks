@@ -104,7 +104,7 @@
             <input name="univAddress" type="text" id="univAddress" value="${spec.about}">
             <br>
 
-            <label class="labelLK" for="univAbout">О специальности: </label>
+            <label class="labelLK" for="univAbout">Об университете: </label>
             <input name="univAbout" type="text" id="univAbout" value="${spec.about}">
             <br>
 
@@ -124,28 +124,6 @@
                 <br>
             </c:forEach><br>
 
-            <p class="labelLK">Университеты, имеющие эту специальность:<br>
-                (изменить данные о принадлежности к университетам можно на странице университета)</p><br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <th>Университет</th>
-                    <th>Страна</th>
-                    <th>Город</th>
-                </tr>
-
-                <c:forEach items="${univs}" var="univ">
-                    <tr>
-                        <td><a href="/universities?id=${univ.id}">${univ.name}</a></td>
-                        <td><c:out value="${univ.country}"></c:out></td>
-                        <td><c:out value="${univ.city}"></c:out></td>
-                    </tr>
-
-                </c:forEach>
-
-                </tbody>
-            </table>
 
             <input type="submit" class="SubmitBotton">
         </form>

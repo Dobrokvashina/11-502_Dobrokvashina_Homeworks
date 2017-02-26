@@ -1,18 +1,9 @@
-import Classes.Achivement;
-import Classes.University;
+
 import DAO.AchivementsDAO;
 import DAO.DAOFactory;
 import DAO.ExtraPointsDAO;
 import Services.AdminService;
 import Services.ServiceFactory;
-import Services.UniversityService;
-import Services.UserService;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by Саоша on 27.10.2016.

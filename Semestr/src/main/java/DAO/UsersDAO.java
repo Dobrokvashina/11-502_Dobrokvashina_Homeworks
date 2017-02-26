@@ -1,6 +1,7 @@
 package DAO;
 
 import Classes.User;
+
 import java.util.List;
 
 public interface UsersDAO {

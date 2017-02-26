@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 
 public class PaintMain {
-    JButton clearBtn, colorBtn, bColorBtn, rotateBtn;
+    JButton clearBtn, colorBtn, bColorBtn, rotateBtn, scaleBtn;
     JSlider sizeBrush;
     Painter drawArea;
 
@@ -50,11 +50,15 @@ public class PaintMain {
         rotateBtn = new JButton("Rotate");
         rotateBtn.addActionListener(actionListener);
 
+        scaleBtn = new JButton("Scale");
+        scaleBtn.addActionListener(actionListener);
+
         controls.add(clearBtn);
         controls.add(colorBtn);
         controls.add(sizeBrush);
         controls.add(bColorBtn);
         controls.add(rotateBtn);
+        controls.add(scaleBtn);
 
 
 
@@ -76,6 +80,8 @@ public class PaintMain {
                 drawArea.chooseBackColor();
             } else if(e.getSource() == rotateBtn) {
                 drawArea.Srotate();
+            } else if(e.getSource() == scaleBtn) {
+                drawArea.scale();
             }
         }
     };

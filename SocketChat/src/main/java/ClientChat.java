@@ -12,11 +12,7 @@ public class ClientChat extends Listener {
     private static String ip = "localhost";
     private static int tcp = 6666, udp = 6666;
 
-    private static boolean registered = false;
-    private String nick;
-    private Message message;
-    private int lose = 0;
-    private RegisterMessage reg;
+    private MessageChecker check;
 
     public static void main(String[] args) {
 
@@ -37,8 +33,6 @@ public class ClientChat extends Listener {
         }
 
         client.addListener(new ClientChat());
-
-
         while(true) {
                 client.getUpdateThread();
         }
@@ -46,22 +40,47 @@ public class ClientChat extends Listener {
 
     }
 
+
     @Override
     public void received(Connection connection, Object object) {
+        if(check == null || !check.isAlive()) {
+            check = new MessageChecker(connection);
+            check.start();
+        }
         if (object instanceof Message) {
             Message mess = (Message) object;
             if(mess.message != null)
             System.out.println(mess.toString());
 
-            boolean check = checkMessage();
+        }
+    }
 
-            if (check && message != null) {
-                connection.sendTCP(message);
-                message = null;
-            } else {
-                if (check && reg != null) {
-                    connection.sendTCP(reg);
-                    reg = null;
+}
+
+class MessageChecker extends Thread {
+
+    private Message message;
+    private RegisterMessage reg;
+    private String nick;
+    private boolean registered;
+    private Connection connection;
+
+    MessageChecker( Connection connection) {
+        this.connection = connection;
+        registered = false;
+    }
+
+    public void run() {
+        while(true) {
+            if (checkMessage()) {
+                if (message != null) {
+                    connection.sendTCP(message);
+                    message = null;
+                } else {
+                    if (reg != null) {
+                        connection.sendTCP(reg);
+                        reg = null;
+                    }
                 }
             }
         }
@@ -74,7 +93,6 @@ public class ClientChat extends Listener {
         } else {
             if (registered) {
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("Write your mesage:");
                 String text = scanner.nextLine();
                 if (text != null && text.compareTo("") != 0) {
                     message = new Message();
@@ -86,7 +104,7 @@ public class ClientChat extends Listener {
                 }
             } else {
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("Write your name:");
+                System.out.println("Your first message gonna be your nickname:");
                 String name = scanner.next();
                 if (name != null && name.compareTo("") != 0) {
                     reg = new RegisterMessage();

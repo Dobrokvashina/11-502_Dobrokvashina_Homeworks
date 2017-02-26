@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.AffineTransform;
 
 
 public class Painter extends JComponent {
@@ -16,6 +17,7 @@ public class Painter extends JComponent {
     private int size;
     private Color background, brush;
     private int oldX, oldY, curX, curY, rotate, rotate1;
+    private boolean scale;
 
     public Painter() {
         background = Color.white;
@@ -90,7 +92,19 @@ public class Painter extends JComponent {
         }
 
         g2Component.rotate(Math.toRadians(rotate), getSize().width / 2, getSize().height / 2);
+        if(scale) {
+            if (rotate == 0) {
+                g2Component.scale(2, 1);
+            } else if (rotate == 90) {
+                g2Component.scale(1, 2);
+            } else if (rotate == 180) {
+                g2Component.scale(2, 1);
+            } else if (rotate == 270) {
+                g2Component.scale(1, 2);
+            }
+        }
         g2Component.drawImage(image, 0, 0, null);
+        repaint();
 
     }
 
@@ -129,4 +143,7 @@ public class Painter extends JComponent {
         repaint();
     }
 
+    public void scale() {
+        scale = !scale;
+    }
 }

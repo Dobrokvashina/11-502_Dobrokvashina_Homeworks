@@ -48,14 +48,14 @@ public class ServerChat extends Listener {
     public synchronized void received(Connection connection, Object message) {
 
         if(message instanceof RegisterMessage) {
-            connection.setTimeout(50000);
+            connection.setTimeout(500000);
             names[i][0] = "" +connection.getID();
             names[i][1] = ((RegisterMessage) message).name;
             connection.sendTCP(new Message());
             i++;
         } else
             if (message instanceof Message) {
-                connection.setTimeout(50000);
+                connection.setTimeout(500000);
                 Iterator<Connection> iterator = clients.iterator();
                 while(iterator.hasNext()) {
                     iterator.next().sendTCP(message);

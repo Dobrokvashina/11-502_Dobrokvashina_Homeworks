@@ -4,7 +4,7 @@ package DAO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserPointsDAOImpl implements UserPointsDAO {
+class UserPointsDAOImpl implements UserPointsDAO {
 
     private Connection connection;
     private Statement st;
